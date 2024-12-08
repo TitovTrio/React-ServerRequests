@@ -1,0 +1,29 @@
+:root {
+	--todo-background: #cedce6;
+	--circle-background: --border-color: #ffffff;
+}
+
+body {
+	padding: 20px;
+}
+
+.toDoListTitle {
+	counter-reset: li;
+	font:
+		20px 'Trebuchet MS',
+		'Lucida Sans';
+	padding: 0;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.37);
+}
+
+.toDoListContainer {
+	padding: 5px 5px 5px 20px;
+	margin: 10px;
+	background: #9cc5d19d;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+.toDoListContainer:hover {
+	background: #cedce646;
+}

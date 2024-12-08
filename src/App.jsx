@@ -1,8 +1,3 @@
-import ReactLogo from './assets/react.svg?react';
+import { ToDoList } from './ToDoList/ToDoList';
 
-export const App = () => (
-	<div>
-		<h1>Hello world!</h1>
-		<ReactLogo />
-	</div>
-);
+export const App = () => <ToDoList />;

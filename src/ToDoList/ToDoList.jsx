@@ -1,5 +1,5 @@
 import { ToDoListLayout } from './ToDoListLayout';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRequestToDoList, useSearchInToDoList, useDebounce } from './hooks';
 import { addItem, deleteItem, changeItem, sortAlphabetOrder } from './funcs';
 

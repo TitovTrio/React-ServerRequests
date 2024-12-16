@@ -1,37 +1,24 @@
 import { ToDoListLayout } from './ToDoListLayout';
 import { useEffect, useState } from 'react';
-import { useRequestToDoList, useSearchInToDoList } from './hooks';
-import { addItem, deleteItem, changeItem } from './funcs';
+import { useRequestToDoList, useSearchInToDoList, useDebounce } from './hooks';
+import { addItem, deleteItem, changeItem, sortAlphabetOrder } from './funcs';
 
 export const ToDoList = () => {
 	const [refreshToDos, setRefreshToDos] = useState(false);
 	const [selectedItem, setSelectedItem] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [searchInput, setSearchInput] = useState('');
 	const [toDos, setToDos] = useState([]);
 	const [sortButtonStatus, setSortButtonStatus] = useState(false);
+	const [searchInput, setSearchInput] = useState('');
+	const debouncedInput = useDebounce(searchInput, 300);
 
 	useRequestToDoList(setToDos, refreshToDos, setIsLoading);
-	useSearchInToDoList(searchInput, toDos, setToDos, refreshToDos, setRefreshToDos);
-
-	const sortAlphabetOrder = () => {
-		setSortButtonStatus(!sortButtonStatus);
-		!sortButtonStatus
-			? setToDos(
-					toDos.sort((a, b) => {
-						let nameA = a.title.toLowerCase(),
-							nameB = b.title.toLowerCase();
-						if (nameA < nameB) return -1;
-						if (nameA > nameB) return 1;
-						return 0;
-					}),
-				)
-			: setRefreshToDos(!refreshToDos);
-	};
+	useSearchInToDoList(debouncedInput, toDos, setToDos, refreshToDos, setRefreshToDos);
 
 	return (
 		<ToDoListLayout
 			toDos={toDos}
+			setToDos={setToDos}
 			addItem={addItem}
 			refreshToDos={refreshToDos}
 			setRefreshToDos={setRefreshToDos}
@@ -43,6 +30,8 @@ export const ToDoList = () => {
 			searchInput={searchInput}
 			setSearchInput={setSearchInput}
 			sortAlphabetOrder={sortAlphabetOrder}
+			sortButtonStatus={sortButtonStatus}
+			setSortButtonStatus={setSortButtonStatus}
 		/>
 	);
 };

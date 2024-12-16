@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useRequestToDoList = (setToDos, refreshToDos, setIsLoading) => {
 	useEffect(() => {
@@ -19,7 +19,23 @@ export const useSearchInToDoList = (
 ) => {
 	useEffect(() => {
 		searchInput
-			? setToDos(toDos.filter(({ title }) => title.startsWith(searchInput)))
+			? setToDos(toDos.filter(({ title }) => title.includes(searchInput)))
 			: setRefreshToDos(!refreshToDos);
 	}, [searchInput]);
+};
+
+export const useDebounce = (value, delay) => {
+	const [debouncedValue, setDebouncedValue] = useState(value);
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setDebouncedValue(value);
+		}, delay);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [value, delay]);
+
+	return debouncedValue;
 };

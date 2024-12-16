@@ -44,3 +44,25 @@ export const deleteItem = (selectedItem, setRefreshToDos, refreshToDos) => {
 			setRefreshToDos(!refreshToDos);
 		});
 };
+
+export const sortAlphabetOrder = (
+	sortButtonStatus,
+	setSortButtonStatus,
+	toDos,
+	setToDos,
+	refreshToDos,
+	setRefreshToDos,
+) => {
+	setSortButtonStatus(!sortButtonStatus);
+	!sortButtonStatus
+		? setToDos(
+				toDos.sort((a, b) => {
+					let nameA = a.title.toLowerCase(),
+						nameB = b.title.toLowerCase();
+					if (nameA < nameB) return -1;
+					if (nameA > nameB) return 1;
+					return 0;
+				}),
+			)
+		: setRefreshToDos(!refreshToDos);
+};

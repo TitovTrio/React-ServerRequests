@@ -29,7 +29,20 @@ export const ToDoListLayout = ({
 		<button onClick={() => changeItem(selectedItem, setRefreshToDos, refreshToDos)}>
 			Изменить дело
 		</button>
-		<button onClick={sortAlphabetOrder}>Сортировать по алфавиту</button>
+		<button
+			onClick={() =>
+				sortAlphabetOrder(
+					sortButtonStatus,
+					setSortButtonStatus,
+					toDos,
+					setToDos,
+					refreshToDos,
+					setRefreshToDos,
+				)
+			}
+		>
+			Сортировать по алфавиту
+		</button>
 		<label>Поиск: </label>
 		<input
 			type="text"
